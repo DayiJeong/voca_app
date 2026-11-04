@@ -177,9 +177,24 @@ const Sync = (() => {
     } catch { /* 조용히 무시 */ }
   }
 
+  // Supabase 에서 켜 둔 로그인 방식 확인 (꺼진 방식의 버튼은 숨김)
+  let providers = null; // { email: bool, google: bool }
+  async function loadProviders() {
+    try {
+      const r = await fetch(cfg.supabaseUrl + '/auth/v1/settings', { headers: { apikey: cfg.supabaseAnonKey } });
+      const s = await r.json();
+      providers = { email: !!s.external?.email, google: !!s.external?.google };
+    } catch {
+      providers = { email: true, google: true }; // 확인 못 하면 일단 다 보여줌
+    }
+    listeners.forEach((f) => f());
+    return providers;
+  }
+
   // ---------------- 시작 ----------------
   function init() {
     if (!enabled) return;
+    loadProviders();
     Store.onSave = () => {
       if (!user || !ready) return; // 로그인 직후 맞추는 중에는 올리지 않음
       editVer++;
@@ -226,6 +241,7 @@ const Sync = (() => {
     get status() { return status; },
     get message() { return message; },
     get pending() { return !!meta.dirty; },
+    get providers() { return providers; },
     subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); },
     init,
 
@@ -239,6 +255,8 @@ const Sync = (() => {
       return { needConfirm: !data.session };
     },
     async signInWithGoogle() {
+      const p = providers || (await loadProviders());
+      if (!p.google) throw new Error('Google 로그인은 아직 준비 중이에요. 이메일로 가입해 주세요.');
       const { error } = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: appUrl() } });
       if (error) throw new Error(ko(error));
     },

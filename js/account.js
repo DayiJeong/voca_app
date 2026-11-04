@@ -59,7 +59,7 @@ Views.account = (el) => {
       <h1>👤 ${TITLE[mode]}</h1>
       <div class="card stack">
         <p class="muted small">로그인하면 학습 기록이 클라우드에 저장돼서 기기를 바꿔도 이어서 할 수 있어요.</p>
-        ${mode !== 'reset' ? `
+        ${mode !== 'reset' && Sync.providers?.google ? `
           <button class="btn google-btn big block" data-a="google">${GOOGLE_ICON} Google로 계속하기</button>
           <div class="divider">또는 이메일</div>` : ''}
         <input type="email" id="a-email" placeholder="이메일" autocomplete="email">
@@ -111,8 +111,14 @@ Views.account = (el) => {
 
 // ---------- 시작 ----------
 let lastUserId = null;
+let providersShown = false;
 Sync.subscribe(() => {
   updateAcctBtn();
+  // 로그인 방식 정보가 처음 도착하면 로그인 화면을 한 번 다시 그림 (Google 버튼 표시 여부)
+  if (Sync.providers && !providersShown) {
+    providersShown = true;
+    if (App.route === 'account' && !Sync.user) go('account');
+  }
   const uid = Sync.user?.id || null;
   if (uid !== lastUserId) {
     lastUserId = uid;
