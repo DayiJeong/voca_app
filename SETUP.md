@@ -1,18 +1,18 @@
 # 배포 & 클라우드 저장 설정 가이드
 
-아래 `<깃허브아이디>`, `<프로젝트ID>` 는 본인 것으로 바꿔 읽으세요.
-최종 앱 주소: `https://<깃허브아이디>.github.io/danjjang/`
+아래 `<프로젝트ID>` 는 본인 Supabase 프로젝트 것으로 바꿔 읽으세요.
+최종 앱 주소: `https://dayijeong.github.io/voca_app/`
 
 ---
 
 ## 1. GitHub Pages 에 올리기
 
 1. github.com 로그인 → 오른쪽 위 **+** → **New repository**
-   - Repository name: `danjjang` · **Public** · 나머지는 체크하지 않음 → Create
+   - Repository name: `voca_app` · **Public** (완료)
 2. (Claude가 코드를 올림 — 첫 push 때 브라우저에서 GitHub 로그인 창이 뜨면 로그인)
 3. 저장소 → **Settings → Pages**
    - Source: **Deploy from a branch** · Branch: **main** / **(root)** → Save
-4. 1~2분 뒤 `https://<깃허브아이디>.github.io/danjjang/` 접속 확인
+4. 1~2분 뒤 `https://dayijeong.github.io/voca_app/` 접속 확인
 
 이후 코드를 고치고 push 하면 자동으로 반영돼요.
 
@@ -34,9 +34,9 @@
 
 ### 2-3. 주소 설정 (로그인 후 앱으로 돌아오게)
 **Authentication → URL Configuration**
-- Site URL: `https://<깃허브아이디>.github.io/danjjang/`
+- Site URL: `https://dayijeong.github.io/voca_app/`
 - Redirect URLs 에 추가:
-  - `https://<깃허브아이디>.github.io/danjjang/`
+  - `https://dayijeong.github.io/voca_app/`
   - `http://localhost:8765/` (내 컴퓨터에서 테스트용)
 
 ### 2-4. 이메일 로그인
@@ -51,7 +51,7 @@
    - **Publish app** (게시) 해야 학생 누구나 로그인 가능 (테스트 상태면 등록한 계정만 가능)
 3. **Credentials → Create credentials → OAuth client ID**
    - Application type: **Web application**
-   - Authorized JavaScript origins: `https://<깃허브아이디>.github.io`
+   - Authorized JavaScript origins: `https://dayijeong.github.io`
    - Authorized redirect URIs: `https://<프로젝트ID>.supabase.co/auth/v1/callback`
    - 만들기 → **Client ID**, **Client secret** 복사
 4. Supabase → **Authentication → Sign In / Providers → Google** → Enable
