@@ -1,12 +1,23 @@
 # 단어짱 — 중고등 영어 단어 암기 앱 (초기 버전)
 
-설치 없이 브라우저에서 돌아가는 웹앱입니다. 데이터는 기기 브라우저(localStorage)에 저장됩니다.
+설치 없이 브라우저에서 돌아가는 웹앱입니다.
 
-## 실행
+## 👉 앱 주소
+**https://dayijeong.github.io/voca_app/**
+
+PC·휴대폰 브라우저에서 바로 열면 됩니다. 학생에게는 이 주소(또는 QR코드)를 나눠주세요.
+
+- 로그인 없이 쓰면: 그 기기 브라우저에만 저장
+- 로그인(이메일 / Google)하면: 클라우드(Supabase)에 자동 저장 → 다른 기기에서도 이어서 학습
+
+## (개발용) 내 컴퓨터에서 고쳐 보며 실행
+코드를 수정할 때만 필요합니다. 프로젝트 폴더에서:
 ```
 .venv\Scripts\python.exe -m http.server 8765 --directory vocab-app
 ```
-→ http://localhost:8765 접속. (index.html을 바로 더블클릭해도 대부분 동작합니다)
+→ http://localhost:8765 접속. 수정 후 GitHub에 push 하면 1~2분 뒤 위 앱 주소에 반영됩니다.
+
+배포·로그인 설정 방법은 [SETUP.md](SETUP.md) 참고.
 
 ## 기능
 - **단어장**: 파일(xlsx/csv/txt/json), 붙여넣기, 웹 주소(URL)로 가져오기 + 개별 입력/수정/삭제, CSV 내보내기
