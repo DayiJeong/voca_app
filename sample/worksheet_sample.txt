@@ -1,0 +1,7 @@
+# Day 1
+apple 사과
+library - 도서관
+weather: 날씨
+# Day 2
+ancient 고대의
+travel 여행하다, 이동하다
