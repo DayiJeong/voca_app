@@ -39,8 +39,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
   background: rgba(255,255,255,.18); border: 0; color: #fff; border-radius: 99px;
   padding: 5px 12px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap;
 }
-.google-btn { background: #fff; color: #333; border: 1px solid var(--line); }
-.google-btn:hover { background: #f8f9fb; }
+.btn.google-btn { background: #fff; color: #333; border: 1px solid var(--line); }
+.btn.google-btn:hover { background: #f8f9fb; }
 .divider { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 13px; }
 .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 input[type=email], input[type=password] {
