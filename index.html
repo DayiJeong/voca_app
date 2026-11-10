@@ -3,39 +3,48 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#4f6bed">
+  <meta name="theme-color" content="#f6f6f3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
   <title>단어짱 - 중고등 영어 단어 암기</title>
-  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body>
   <header class="topbar">
-    <button class="brand" data-go="home">📘 단어짱</button>
-    <div class="row" style="gap:4px">
+    <button class="brand" data-go="home" id="brand"><span class="logo"></span>단어짱</button>
+    <div class="top-actions">
       <button class="acct-btn hidden" id="acct-btn" data-go="account"></button>
-      <button class="icon-btn" data-go="settings" aria-label="설정">⚙️</button>
+      <button class="icon-btn" data-go="settings" aria-label="설정" id="settings-btn"></button>
     </div>
   </header>
 
   <main id="view"></main>
 
   <nav class="tabbar">
-    <button data-go="home"><b>🏠</b><span>홈</span></button>
-    <button data-go="books"><b>📚</b><span>단어장</span></button>
-    <button data-go="study"><b>✏️</b><span>학습</span></button>
-    <button data-go="games"><b>🎮</b><span>게임</span></button>
-    <button data-go="wrong"><b>❗</b><span>오답노트</span></button>
+    <button data-go="home" data-icon="home"><span>홈</span></button>
+    <button data-go="books" data-icon="book"><span>단어장</span></button>
+    <button data-go="study" data-icon="cards"><span>학습</span></button>
+    <button data-go="games" data-icon="game"><span>게임</span></button>
+    <button data-go="wrong" data-icon="alert"><span>오답노트</span></button>
   </nav>
 
   <div id="toast"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.min.js"></script>
-  <script src="js/config.js?v=5"></script>
-  <script src="js/sample.js?v=5"></script>
-  <script src="js/store.js?v=5"></script>
-  <script src="js/importer.js?v=5"></script>
-  <script src="js/games.js?v=5"></script>
-  <script src="js/sync.js?v=5"></script>
-  <script src="js/app.js?v=5"></script>
-  <script src="js/account.js?v=5"></script>
+  <script src="js/icons.js?v=6"></script>
+  <script>
+    document.querySelector('.logo').innerHTML = ICON.logo;
+    document.getElementById('settings-btn').innerHTML = ICON.settings;
+    document.querySelectorAll('.tabbar [data-icon]').forEach((b) => b.insertAdjacentHTML('afterbegin', ICON[b.dataset.icon]));
+  </script>
+  <script src="js/config.js?v=6"></script>
+  <script src="js/sample.js?v=6"></script>
+  <script src="js/store.js?v=6"></script>
+  <script src="js/importer.js?v=6"></script>
+  <script src="js/games.js?v=6"></script>
+  <script src="js/sync.js?v=6"></script>
+  <script src="js/app.js?v=6"></script>
+  <script src="js/account.js?v=6"></script>
 </body>
 </html>

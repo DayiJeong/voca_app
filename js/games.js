@@ -47,7 +47,7 @@ const Games = (() => {
         <div class="card quiz-q">
           <div class="muted small">${enToKo ? '알맞은 뜻을 고르세요' : '알맞은 영단어를 고르세요'}</div>
           <div class="q">${esc(enToKo ? w.word : w.meaning)}</div>
-          ${enToKo ? '<button class="speak" data-say>🔊 발음</button>' : ''}
+          ${enToKo ? `<button class="speak" data-say>${ICON.speak} 발음</button>` : ''}
         </div>
         <div class="quiz-opts">
           ${opts.map((o) => `<button data-id="${o.id}">${esc(enToKo ? o.meaning : o.word)}</button>`).join('')}
@@ -310,7 +310,7 @@ const Games = (() => {
           </div>
           <div class="row" style="justify-content:center;margin-top:16px">
             <button class="btn ghost sm" data-back>⌫ 지우기</button>
-            <button class="btn ghost sm" data-hint>💡 힌트</button>
+            <button class="btn ghost sm" data-hint>힌트</button>
             <button class="btn ghost sm" data-pass>모르겠어요</button>
           </div>
         </div>`;

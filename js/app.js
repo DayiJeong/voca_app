@@ -72,12 +72,12 @@ function unitOptions(bookId, selected) {
 function emptyBooks(el) {
   el.innerHTML = `
     <div class="card center stack">
-      <div style="font-size:48px">📚</div>
+      <div class="empty-ico">${ICON.book}</div>
       <h2>아직 단어장이 없어요</h2>
       <p class="muted">교과서·학습지 단어 파일을 가져오거나, 직접 입력하거나,<br>샘플 단어장으로 먼저 체험해 보세요.</p>
-      <button class="btn block" data-a="import">📂 파일로 단어장 만들기</button>
-      <button class="btn secondary block" data-a="new">✍️ 빈 단어장 만들고 직접 입력</button>
-      <button class="btn ghost block" data-a="sample">🧪 샘플 단어장 추가</button>
+      <button class="btn block" data-a="import">파일로 단어장 만들기</button>
+      <button class="btn secondary block" data-a="new">빈 단어장 만들고 직접 입력</button>
+      <button class="btn ghost block" data-a="sample">샘플 단어장 추가</button>
     </div>`;
   on(el, '[data-a=import]', 'click', () => go('import'));
   on(el, '[data-a=new]', 'click', () => {
@@ -122,28 +122,28 @@ Views.home = (el) => {
 
     <div class="card stack">
       <div class="row between">
-        <h2 style="margin:0">📅 오늘의 단어</h2>
+        <h2 style="margin:0">오늘의 단어</h2>
         <span class="badge">${plan.ids.length}개</span>
       </div>
       ${plan.ids.length ? `
         <div class="progress ok"><i style="width:${pct}%"></i></div>
-        <p class="muted small">${planLearned} / ${plan.ids.length}개 외움 ${pct === 100 ? '· 🎉 오늘 목표 달성!' : ''}</p>
+        <p class="muted small">${planLearned} / ${plan.ids.length}개 외움 ${pct === 100 ? '· 오늘 목표 달성!' : ''}</p>
         <div class="grid2">
-          <button class="btn big" data-a="study-today">✏️ 학습하기</button>
-          <button class="btn accent big" data-a="test-today">🎮 게임 테스트</button>
+          <button class="btn big" data-a="study-today">학습하기</button>
+          <button class="btn accent big" data-a="test-today">게임 테스트</button>
         </div>` : `
-        <p class="muted">이 단어장의 단어를 모두 외웠어요! 🎉 오답노트나 게임으로 복습해 보세요.</p>`}
+        <p class="muted">이 단어장의 단어를 모두 외웠어요! 오답노트나 게임으로 복습해 보세요.</p>`}
     </div>
 
     ${wrongCount ? `
     <div class="card row between clickable" data-a="wrong">
-      <div><h3 style="margin:0">❗ 틀린 단어 ${wrongCount}개</h3><p class="muted small" style="margin:0">다시 학습하고 오답노트를 비워 보세요</p></div>
+      <div><h3 style="margin:0">틀린 단어 ${wrongCount}개</h3><p class="muted small" style="margin:0">다시 학습하고 오답노트를 비워 보세요</p></div>
       <span class="btn bad sm">복습</span>
     </div>` : ''}
 
     ${units.length > 1 ? `
     <div class="card">
-      <h2>📖 단원별 진도</h2>
+      <h2>단원별 진도</h2>
       <ul class="list">
         ${units.map((u) => {
           const ws = Store.wordsOfUnit(book.id, u.name);
@@ -167,10 +167,10 @@ Views.home = (el) => {
 Views.books = (el) => {
   if (!Store.books().length) return emptyBooks(el);
   el.innerHTML = `
-    <h1>📚 단어장</h1>
+    <h1>단어장</h1>
     <div class="grid2" style="margin-bottom:14px">
-      <button class="btn" data-a="import">📂 파일/붙여넣기로 가져오기</button>
-      <button class="btn secondary" data-a="new">✍️ 새 단어장</button>
+      <button class="btn" data-a="import">파일/붙여넣기로 가져오기</button>
+      <button class="btn secondary" data-a="new">새 단어장</button>
     </div>
     ${Store.books().map((b) => {
       const st = Store.bookStats(b.id);
@@ -209,7 +209,7 @@ Views.book = (el, { id, unit = '__all' }) => {
     <h1>${esc(b.name)}</h1>
 
     <div class="card stack">
-      <h2>✍️ 단어 직접 추가</h2>
+      <h2>단어 직접 추가</h2>
       <div class="grid2">
         <div><label class="field">영단어 *</label><input type="text" id="f-word" placeholder="예: decide" autocapitalize="off"></div>
         <div><label class="field">뜻 *</label><input type="text" id="f-meaning" placeholder="예: 결정하다"></div>
@@ -219,7 +219,7 @@ Views.book = (el, { id, unit = '__all' }) => {
       </div>
       <div class="row">
         <button class="btn" data-a="add">추가</button>
-        <button class="btn secondary" data-a="import">📂 이 단어장에 파일 가져오기</button>
+        <button class="btn secondary" data-a="import">이 단어장에 파일 가져오기</button>
       </div>
     </div>
 
@@ -232,7 +232,7 @@ Views.book = (el, { id, unit = '__all' }) => {
       </div>
       ${words.length ? `<ul class="list">
         ${words.map((w) => `<li data-id="${w.id}">
-          <button class="speak" style="margin:0" data-say="${esc(w.word)}">🔊</button>
+          <button class="speak" style="margin:0" data-say="${esc(w.word)}">${ICON.speak}</button>
           <div class="grow"><div class="w">${esc(w.word)}</div><div class="m">${esc(w.meaning)}${w.unit && unit === '__all' ? ` · <span class="small">${esc(w.unit)}</span>` : ''}</div></div>
           ${statusBadge(w.id)}
           <button class="btn ghost sm" data-edit>✏️</button>
@@ -287,7 +287,7 @@ Views.import = (el, { bookId } = {}) => {
 
   el.innerHTML = `
     <div class="row" style="margin-bottom:8px"><button class="btn ghost sm" data-a="back">← 뒤로</button></div>
-    <h1>📂 단어 가져오기${target ? ` <span class="muted small">→ ${esc(target.name)}</span>` : ''}</h1>
+    <h1>단어 가져오기${target ? ` <span class="muted small">→ ${esc(target.name)}</span>` : ''}</h1>
     <div class="seg" style="margin-bottom:12px">
       <button class="on" data-tab="file">파일</button>
       <button data-tab="paste">붙여넣기</button>
@@ -337,7 +337,7 @@ Views.import = (el, { bookId } = {}) => {
       if (!parsed.rows.some((r) => r.cells)) throw new Error('단어를 찾지 못했어요. 형식을 확인해 주세요.');
       preview();
     } catch (err) {
-      $('#imp-preview').innerHTML = `<div class="card" style="color:var(--bad)">⚠️ ${esc(err.message)}</div>`;
+      $('#imp-preview').innerHTML = `<div class="card" style="color:var(--bad)">${esc(err.message)}</div>`;
     }
   };
   on(el, '#imp-file', 'change', (e) => {
@@ -366,7 +366,7 @@ Views.import = (el, { bookId } = {}) => {
               `<option value="${f.key}" ${f.key === m ? 'selected' : ''}>${f.label}</option>`).join('')}</select></th>`).join('')}</tr>
             ${shown.map((r) => r.cells
               ? `<tr>${mapping.map((_, i) => `<td>${esc(r.cells[i] || '')}</td>`).join('')}</tr>`
-              : `<tr><td class="sec" colspan="${mapping.length}">📖 단원: ${esc(r.section)}</td></tr>`).join('')}
+              : `<tr><td class="sec" colspan="${mapping.length}">단원: ${esc(r.section)}</td></tr>`).join('')}
           </table></div>
           ${parsed.rows.length > shown.length ? `<p class="muted small">… 외 ${parsed.rows.length - shown.length}줄</p>` : ''}
           ${target ? '' : `
@@ -376,7 +376,7 @@ Views.import = (el, { bookId } = {}) => {
               ${Store.books().map((b) => `<option value="${b.id}">${esc(b.name)}</option>`).join('')}
             </select>
             <input type="text" id="imp-name" value="${esc(fileName)}" placeholder="새 단어장 이름">`}
-          <button class="btn big block" data-a="save" ${items.length ? '' : 'disabled'}>✅ ${items.length}개 단어 저장</button>
+          <button class="btn big block" data-a="save" ${items.length ? '' : 'disabled'}>${items.length}개 단어 저장</button>
         </div>`;
       on(box, '[data-col]', 'change', (e, s) => { mapping[+s.dataset.col] = s.value; render(); });
       on(box, '#imp-target', 'change', (e) => $('#imp-name').classList.toggle('hidden', e.target.value !== '__new'));
@@ -405,7 +405,7 @@ Views.study = (el, { mode = 'today', unit } = {}) => {
   const st = Store.bookStats(book.id);
 
   el.innerHTML = `
-    <h1>✏️ 단어 학습</h1>
+    <h1>단어 학습</h1>
     <div class="card stack">
       <label class="field">단어장</label>
       ${bookSelect('st-book', book.id)}
@@ -481,7 +481,7 @@ Views.flash = (el, { ids, title = '학습', reverse = false }) => {
     flipped = false;
     el.innerHTML = `
       <div class="row between">
-        <button class="btn ghost sm" data-a="quit">✕ 그만하기</button>
+        <button class="btn ghost sm" data-a="quit">그만하기</button>
         <span class="muted small">${esc(title)}</span>
         <label class="row small muted"><input type="checkbox" id="fl-rev" ${reverse ? 'checked' : ''}> 뜻 먼저</label>
       </div>
@@ -489,7 +489,7 @@ Views.flash = (el, { ids, title = '학습', reverse = false }) => {
       <p class="muted small center" style="margin-top:6px">${i + 1} / ${words.length}</p>
       <div class="flash-wrap"><div class="flash" id="card">
         <div class="face front">
-          ${reverse ? `<div class="big-mean">${esc(w.meaning)}</div>` : `<div class="big-word">${esc(w.word)}</div><button class="speak" data-say>🔊 발음 듣기</button>`}
+          ${reverse ? `<div class="big-mean">${esc(w.meaning)}</div>` : `<div class="big-word">${esc(w.word)}</div><button class="speak" data-say>${ICON.speak} 발음 듣기</button>`}
           ${w.unit ? `<span class="badge gray" style="margin-top:12px">${esc(w.unit)}</span>` : ''}
           <div class="hint">탭해서 뒤집기 (Space)</div>
         </div>
@@ -497,12 +497,12 @@ Views.flash = (el, { ids, title = '학습', reverse = false }) => {
           <div class="big-word" style="font-size:28px">${esc(w.word)}</div>
           <div class="big-mean" style="margin-top:6px">${esc(w.meaning)}</div>
           ${w.example ? `<div class="ex">${esc(w.example)}</div>` : ''}
-          <button class="speak" data-say>🔊</button>
+          <button class="speak" data-say>${ICON.speak}</button>
         </div>
       </div></div>
       <div class="grid2" style="grid-template-columns:1fr 1fr">
-        <button class="btn bad big" data-a="no">😵 몰라요 (←)</button>
-        <button class="btn ok big" data-a="yes">😎 알아요 (→)</button>
+        <button class="btn bad big" data-a="no">몰라요<kbd>←</kbd></button>
+        <button class="btn ok big" data-a="yes">알아요<kbd>→</kbd></button>
       </div>`;
     if (!reverse) speak(w.word);
     $('#card').addEventListener('click', (e) => { if (!e.target.closest('[data-say]')) flip(); });
@@ -532,11 +532,11 @@ Views.flash = (el, { ids, title = '학습', reverse = false }) => {
         <h1 style="margin:6px 0">${esc(title)} 학습 완료!</h1>
         <p class="muted">알아요 <b style="color:var(--ok)">${known.length}</b> · 몰라요 <b style="color:var(--bad)">${unknown.length}</b></p>
       </div>
-      ${unknown.length ? `<div class="card"><h2>😵 모르는 단어 (오답노트에 저장됨)</h2>
+      ${unknown.length ? `<div class="card"><h2>모르는 단어 (오답노트에 저장됨)</h2>
         <ul class="list">${unknown.map((w) => `<li><div class="grow"><span class="w">${esc(w.word)}</span> <span class="m">${esc(w.meaning)}</span></div></li>`).join('')}</ul></div>` : ''}
       <div class="stack">
-        ${unknown.length ? `<button class="btn bad big block" data-a="again">🔁 모르는 단어 다시 보기 (${unknown.length})</button>` : ''}
-        <button class="btn accent big block" data-a="test">🎮 방금 학습한 단어로 게임 테스트</button>
+        ${unknown.length ? `<button class="btn bad big block" data-a="again">모르는 단어 다시 보기 (${unknown.length})</button>` : ''}
+        <button class="btn accent big block" data-a="test">방금 학습한 단어로 게임 테스트</button>
         <button class="btn ghost block" data-a="home">홈으로</button>
       </div>`;
     const studied = [...known, ...unknown].map((w) => w.id);
@@ -575,7 +575,7 @@ Views.games = (el, params = {}) => {
   ];
 
   el.innerHTML = `
-    <h1>🎮 게임 테스트</h1>
+    <h1>게임 테스트</h1>
     <div class="card stack">
       <h2>1. 어떤 단어로?</h2>
       <div class="row" style="gap:6px">${sources.map((s) =>
@@ -589,12 +589,12 @@ Views.games = (el, params = {}) => {
       <h2>2. 어떤 게임?</h2>
       ${Games.LIST.map((g) => `
         <button class="choice-card ${g.id === game ? 'on' : ''}" data-game="${g.id}">
-          <div class="row between"><span class="t">${g.emoji} ${g.name}</span>
+          <div class="row between"><span class="t"><span class="gicon">${g.emoji}</span>${g.name}</span>
           ${Store.state.best[g.id] ? `<span class="badge">최고 ${Store.state.best[g.id]}점</span>` : ''}</div>
           <div class="d">${g.desc}</div>
         </button>`).join('')}
     </div>
-    <button class="btn accent big block" data-a="start">▶ 게임 시작</button>`;
+    <button class="btn accent big block" data-a="start">게임 시작</button>`;
 
   function pickWords() {
     if (source === 'ids') return Store.wordsByIds(params.ids);
@@ -640,8 +640,8 @@ Views.play = (el, { game, ids }) => {
 
   el.innerHTML = `
     <div class="row between" style="margin-bottom:10px">
-      <h2 style="margin:0">${g.emoji} ${g.name}</h2>
-      <button class="btn ghost sm" data-a="quit">✕ 그만</button>
+      <h2 style="margin:0">${g.name}</h2>
+      <button class="btn ghost sm" data-a="quit">그만</button>
     </div>
     <div id="stage"></div>`;
   const stage = $('#stage');
@@ -670,21 +670,21 @@ Views.play = (el, { game, ids }) => {
       <div class="card result-hero">
         <div class="emoji">${rate >= 90 ? '🏆' : rate >= 70 ? '🎉' : rate >= 40 ? '💪' : '📚'}</div>
         <div class="sc">${score}점</div>
-        ${best ? '<span class="badge" style="background:#fff2e6;color:var(--accent)">🎊 최고 기록!</span>' : ''}
+        ${best ? '<span class="badge" style="background:var(--accent-soft);color:var(--accent)">최고 기록!</span>' : ''}
         <p class="muted" style="margin-top:6px">정답 ${right.length} / ${total} (${rate}%)</p>
         ${note ? `<p class="muted small">${esc(note)}</p>` : ''}
       </div>
       ${wrong.length ? `
-      <div class="card"><h2>❌ 틀린 단어 ${wrong.length}개 <span class="muted small">· 오답노트에 저장됨</span></h2>
+      <div class="card"><h2>틀린 단어 ${wrong.length}개 <span class="muted small">· 오답노트에 저장됨</span></h2>
         <ul class="list">${wrong.map((w) => `<li>
-          <button class="speak" style="margin:0" data-say="${esc(w.word)}">🔊</button>
+          <button class="speak" style="margin:0" data-say="${esc(w.word)}">${ICON.speak}</button>
           <div class="grow"><div class="w">${esc(w.word)}</div><div class="m">${esc(w.meaning)}</div></div></li>`).join('')}</ul>
       </div>` : '<div class="card center">모두 맞혔어요! 👏</div>'}
       <div class="stack">
         ${wrong.length ? `
-          <button class="btn bad big block" data-a="flash-wrong">📖 틀린 단어 다시 학습</button>
-          <button class="btn secondary block" data-a="game-wrong">🎮 틀린 단어로 다시 게임</button>` : ''}
-        <button class="btn accent block" data-a="again">🔁 같은 단어로 다시 하기</button>
+          <button class="btn bad big block" data-a="flash-wrong">틀린 단어 다시 학습</button>
+          <button class="btn secondary block" data-a="game-wrong">틀린 단어로 다시 게임</button>` : ''}
+        <button class="btn accent block" data-a="again">같은 단어로 다시 하기</button>
         <button class="btn ghost block" data-a="list">다른 게임 고르기</button>
       </div>`;
     on(el, '[data-say]', 'click', (e, b) => speak(b.dataset.say));
@@ -703,7 +703,7 @@ Views.wrong = (el, { bookId = '' } = {}) => {
   const list = Store.wrongList(bookId || undefined);
   const N = Store.state.settings.wrongClearStreak;
   el.innerHTML = `
-    <h1>❗ 오답노트</h1>
+    <h1>오답노트</h1>
     <p class="muted small">플래시카드에서 "몰라요" 했거나 게임에서 틀린 단어가 모여요.
       게임에서 <b>${N}번 연속</b> 맞히면 오답노트에서 졸업! 🎓</p>
     ${Store.books().length > 1 ? `<select id="w-book" style="margin-bottom:12px">
@@ -712,15 +712,15 @@ Views.wrong = (el, { bookId = '' } = {}) => {
     </select>` : ''}
     ${list.length ? `
       <div class="grid2" style="margin-bottom:14px">
-        <button class="btn big" data-a="flash">📖 플래시카드 복습</button>
-        <button class="btn accent big" data-a="game">🎮 게임으로 복습</button>
+        <button class="btn big" data-a="flash">플래시카드 복습</button>
+        <button class="btn accent big" data-a="game">게임으로 복습</button>
       </div>
       <div class="card">
         <div class="row between"><h2 style="margin:0">${list.length}개</h2>
           <button class="btn ghost sm" data-a="clear">모두 비우기</button></div>
         <ul class="list">
           ${list.map((w) => `<li data-id="${w.id}">
-            <button class="speak" style="margin:0" data-say="${esc(w.word)}">🔊</button>
+            <button class="speak" style="margin:0" data-say="${esc(w.word)}">${ICON.speak}</button>
             <div class="grow"><div class="w">${esc(w.word)}</div>
               <div class="m">${esc(w.meaning)}${w.unit ? ` · <span class="small">${esc(w.unit)}</span>` : ''}</div></div>
             <div class="center">
@@ -731,7 +731,7 @@ Views.wrong = (el, { bookId = '' } = {}) => {
           </li>`).join('')}
         </ul>
       </div>` : `
-      <div class="card center"><div style="font-size:44px">✨</div><h2>오답노트가 비어 있어요</h2>
+      <div class="card center"><div class="empty-ico">${ICON.sparkle}</div><h2>오답노트가 비어 있어요</h2>
         <p class="muted">틀린 단어가 생기면 여기에 모여요.</p></div>`}`;
 
   const ids = list.map((w) => w.id);
@@ -747,7 +747,7 @@ Views.wrong = (el, { bookId = '' } = {}) => {
 Views.settings = (el) => {
   const s = Store.state.settings;
   el.innerHTML = `
-    <h1>⚙️ 설정</h1>
+    <h1>설정</h1>
     <div class="card stack">
       <div><label class="field">하루 학습 단어 수</label><input type="number" id="s-daily" min="1" max="200" value="${s.dailyCount}"></div>
       <div><label class="field">오답노트 졸업 조건 (연속 정답 횟수)</label><input type="number" id="s-streak" min="1" max="10" value="${s.wrongClearStreak}"></div>
@@ -756,15 +756,15 @@ Views.settings = (el) => {
     <div class="card stack">
       <h2>데이터</h2>
       <p class="muted small">${Sync.user
-        ? `☁️ ${esc(Sync.user.email)} 계정에 자동 저장 중이에요.`
+        ? `${esc(Sync.user.email)} 계정에 자동 저장 중이에요.`
         : Sync.enabled
           ? '지금은 이 기기에만 저장돼요. <a href="#" data-a="login">로그인</a>하면 클라우드에 저장돼요.'
           : '학습 기록은 이 기기의 브라우저에 저장돼요. 기기를 바꿀 땐 백업 파일을 옮기세요.'}</p>
       <div class="grid2">
-        <button class="btn secondary" data-a="backup">💾 백업 내보내기</button>
-        <label class="btn secondary">📥 백업 불러오기<input type="file" id="s-restore" accept=".json" hidden></label>
+        <button class="btn secondary" data-a="backup">백업 내보내기</button>
+        <label class="btn secondary">백업 불러오기<input type="file" id="s-restore" accept=".json" hidden></label>
       </div>
-      <button class="btn ghost" data-a="sample">🧪 샘플 단어장 추가</button>
+      <button class="btn ghost" data-a="sample">샘플 단어장 추가</button>
       <button class="btn ghost" data-a="reset" style="color:var(--bad)">모든 데이터 초기화</button>
     </div>`;
   on(el, '[data-a=save]', 'click', () => {
